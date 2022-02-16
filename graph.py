@@ -64,9 +64,8 @@ class LocalGraph:
         return node in self.__graph.keys()
 
     def is_edge_exists(self, node1: str, node2: str) -> bool:
-        assert node1 in self.__graph.keys(), f'{node1} не в списке вершин'
-        assert node2 in self.__graph.keys(), f'{node2} не в списке вершин'
-        return node2 in self.__graph[node1] and node1 in self.__graph[node2]
+        # Проверка, есть ли ребро между двумя вершинами
+        return node2 in self.get_nodes_by_node(node1) and node1 in self.get_nodes_by_node(node2)
 
     def to_adjacency_map(self):
         # Пример вывода
