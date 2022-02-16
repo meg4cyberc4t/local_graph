@@ -67,6 +67,29 @@ class LocalGraph:
         # Проверка, есть ли ребро между двумя вершинами
         return node2 in self.get_nodes_by_node(node1) and node1 in self.get_nodes_by_node(node2)
 
+    def __passage_in_depth(self, node, visited_list, ended_list):
+        if visited_list is None:
+            visited_list = []
+        if ended_list is None:
+            ended_list = []
+        if node in visited_list or node in ended_list:
+            return
+        visited_list.append(node)
+        for l_node in self.get_nodes_by_node(node):
+            self.__passage_in_depth(l_node, visited_list, ended_list)
+        visited_list.remove(node)
+        ended_list.append(node)
+        return ended_list
+
+    def passage_in_depth(self, start_node=None):
+        # Прохождение в глубину от определённой вершины.
+        # Берёт первую вершину по умолчанию.
+        if not start_node:
+            start_node = self.first_node()
+        visited_list = []
+        ended_list = []
+        return self.__passage_in_depth(start_node, visited_list, ended_list)
+
     def to_adjacency_map(self):
         # Пример вывода
         # {'A': ('B', 'C'), 'B': ('A', 'C'), 'C': ('A', 'B')}
