@@ -90,6 +90,18 @@ class LocalGraph:
         ended_list = []
         return self.__passage_in_depth(start_node, visited_list, ended_list)
 
+    def count_of_components(self):
+        # Количество компонентов графа, которые не пересекаются
+        count = 0
+        nodes = list(self.__graph.keys())
+        while nodes:
+            node = nodes[0]
+            component_nodes = self.__passage_in_depth(node)
+            for component_node in component_nodes:
+                nodes.remove(component_node)
+            count += 1
+        return count
+
     def to_adjacency_map(self):
         # Пример вывода
         # {'A': ('B', 'C'), 'B': ('A', 'C'), 'C': ('A', 'B')}
