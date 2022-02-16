@@ -102,6 +102,31 @@ class LocalGraph:
             count += 1
         return count
 
+    def __is_twopart(self, node, list_color_index_true, list_color_index_false, color_value=False):
+        # Рекурсивная логика is_twopart
+        if node in list_color_index_false:
+            return not color_value
+        if node in list_color_index_true:
+            return color_value
+        if color_value:
+            list_color_index_true.add(node)
+        else:
+            list_color_index_false.add(node)
+        for l_node in self.get_nodes_by_node(node):
+            value = self.__is_twopart(l_node,
+                                      list_color_index_true,
+                                      list_color_index_false,
+                                      not color_value)
+            if not value:
+                return False
+        return True
+
+    def is_twopart(self, start_node=None):
+        # Возвращает true, если граф двудольный
+        if start_node is None:
+            start_node = self.first_node()
+        return self.__is_twopart(start_node, set(), set())
+
     def to_adjacency_map(self):
         # Пример вывода
         # {'A': ('B', 'C'), 'B': ('A', 'C'), 'C': ('A', 'B')}
