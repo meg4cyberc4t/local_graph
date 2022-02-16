@@ -45,12 +45,23 @@ class LocalGraph:
     def add_node(self, node: str):
         assert node not in self.__graph.keys(), f'{node} дублируется в списке вершин'
         self.__graph[node] = ()
+    def get_nodes_by_node(self, node: str):
+        # Получение сета вершин по вершине
+        return self.__graph[node]
 
     def add_edge(self, node1: str, node2: str):
         assert node1 in self.__graph.keys(), f'{node1} не в списке вершин'
         assert node2 in self.__graph.keys(), f'{node2} не в списке вершин'
         self.__graph[node1] = (*self.__graph[node1], node2)
         self.__graph[node2] = (*self.__graph[node2], node1)
+
+    def first_node(self):
+        # Получение первой вершины
+        return list(self.__graph.keys())[0]
+
+    def is_node_exists(self, node: str) -> bool:
+        # Проверка, есть ли вершина в графе
+        return node in self.__graph.keys()
 
     def is_edge_exists(self, node1: str, node2: str) -> bool:
         assert node1 in self.__graph.keys(), f'{node1} не в списке вершин'
