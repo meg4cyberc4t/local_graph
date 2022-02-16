@@ -43,13 +43,16 @@ class LocalGraph:
         return gr
 
     def add_node(self, node: str):
+        # Добавление вершины в список
         assert node not in self.__graph.keys(), f'{node} дублируется в списке вершин'
-        self.__graph[node] = ()
+        self.__graph[node] = {}
+
     def get_nodes_by_node(self, node: str):
         # Получение сета вершин по вершине
         return self.__graph[node]
 
     def add_edge(self, node1: str, node2: str):
+        # Добавление ребра
         assert node1 in self.__graph.keys(), f'{node1} не в списке вершин'
         assert node2 in self.__graph.keys(), f'{node2} не в списке вершин'
         self.__graph[node1] = (*self.__graph[node1], node2)
