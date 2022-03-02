@@ -157,3 +157,7 @@ class LocalGraph:
                 if not ((node1, node2,) in list_nodes or (node2, node1,) in list_nodes):
                     list_nodes.append((node1, node2,))
         return list_edges, list_nodes
+
+    # Топологическая сортировка
+    def dfs(self, start_node=None):
+        return self.passage_in_depth(start_node)[::-1]
